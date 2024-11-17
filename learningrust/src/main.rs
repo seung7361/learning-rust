@@ -1,23 +1,15 @@
-struct Data {
-    data: String,
+use rocket::{fs::FileServer, response::Redirect, uri};
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug)]
+pub struct ErrorResponser {
+    message: String,
+    error_code: u16,
 }
 
-impl Drop for Data {
-    fn drop(&mut self) {
-        println!("Dropping Data: {}", self.data);
-    }
-}
 
 fn main() {
-    let x = Data {
-        data: String::from("hello!"),
-    };
+    let err = ErrorResponser {message: String::from("Hello error!"), error_code: 200};
 
-    let y = Data {
-        data: String::from("world!"),
-    };
-
-    drop(x);
-
-    println!("Exiting main()");
+    println!("{:?}", err);
 }
