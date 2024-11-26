@@ -30,13 +30,10 @@ fn handle_connection(mut stream: TcpStream) {
 
 fn main() {
     let listener = TcpListener::bind("localhost:7878").unwrap();
-    let pool = ThreadPool::new(4);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
-        pool.execute(|| {
-            handle_connection(stream);
-        });
+        handle_connection(stream);
     }
 }
