@@ -35,6 +35,7 @@ pub enum PLAYER_BLOCK {
 pub struct MineSweeper {
     rows: usize,
     cols: usize,
+    mines: usize,
     board: Vec<Vec<BLOCK>>,
     player_board: Vec<Vec<PLAYER_BLOCK>>,
     status: STATUS,
@@ -45,6 +46,7 @@ impl MineSweeper {
         let mut out = MineSweeper {
             rows,
             cols,
+            mines,
             board: vec![vec![BLOCK::NONE; cols]; rows],
             player_board: vec![vec![PLAYER_BLOCK::UNOPEN; cols]; rows],
             status: STATUS::READY,
@@ -130,14 +132,16 @@ impl MineSweeper {
     }
 
     pub fn did_win(&self) -> bool {
+        let mut cnt = 0;
         for x in 0..self.rows {
             for y in 0..self.cols {
-                if self.get_player_block(x, y) == PLAYER_BLOCK::UNOPEN && self.get_block(x, y) != BLOCK::MINE {
-                    return false;
+                if self.get_block(x, y) == BLOCK::MINE && self.get_player_block(x, y) == PLAYER_BLOCK::FLAG {
+                    cnt += 1;
                 }
             }
         }
-        true
+
+        cnt == self.mines
     }
 
     pub fn open_cell(&mut self, x: usize, y: usize) {
@@ -175,6 +179,10 @@ impl MineSweeper {
             self.player_board[x][y] = PLAYER_BLOCK::FLAG;
         } else if self.player_board[x][y] == PLAYER_BLOCK::FLAG {
             self.player_board[x][y] = PLAYER_BLOCK::UNOPEN;
+        }
+
+        if self.did_win() {
+            self.status = STATUS::WIN;
         }
     }
 }
