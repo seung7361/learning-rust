@@ -1,11 +1,10 @@
 [package]
-name = "firstwebserver"
+name = "axum1"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-serde = "1.0.200"
-tokio = "1.37.0"
-warp = "0.3.7"
+axum = "0.7.9"
+tokio = { version = "1.42.0", features = ["full"] }

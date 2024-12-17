@@ -11,6 +11,7 @@ Here are the projects I've worked on so far:
 3. **Mandelbrot**: A program to generate Mandelbrot fractals.
 4. **Minesweeper-rs**: A clone of the classic Minesweeper game written in Rust.
 5. **Raytracer Clone**: A basic raytracer implemented in Rust.
+6. **scenario1**: A simple webserver in Rust. Cloned from book "Rust Servers, Services, and Apps".
 
 ## Getting Started
 
